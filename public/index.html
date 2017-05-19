@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="votingApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Voters Page</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!--Font Awesome cdn-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!--My styling-->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body ng-controller="voteCtrl">
+
+
+    <!------------------form-------------------------------->
+    <form novalidate name="voteInput" class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xs-offset-4 col-sm-offset-4 col-md-offset-4 col-lg-offset-4 text-center">
+        <input class="form-control" placeholder="Title of political issue." name="title" ng-model="issue.title">
+        <input class="form-control" placeholder="Description of the political issue." name="description" ng-model="issue.description">
+        <button class="btn btn-primary" type="button" ng-click="postIssue(issue)">Post</button>
+    </form>
+    <div class="clear"></div>
+
+    <!------------------Display Post-------------------------------->
+    <div class="container">
+        <div ng-repeat="item in issues | orderBy: '-votes' track by $index">
+            {{item.title}}<br/> {{item.description}}
+            <p>{{item.votes}}</p>
+            <p ng-repeat="comment in item.comments">{{comment}}</p>
+            <div class="up-down-vote">
+                <button ng-click="upVote(item)" type="button" class="btn btn-success">
+                    <label>Upvote</label>
+                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                </button>
+                <button ng-click="downVote(item)" type="button" class="btn btn-danger">
+                    <label>Downvote</label>
+                    <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="textbox">
+                <textarea placeholder="Drop you comment here" ng-model="newComment"></textarea>
+                <button type="button" ng-click="addComment(newComment, item)">Add</button>
+            </div>
+            <button type="button" ng-click="deleteIssue($index, item._id)">Remove</button>
+        </div>
+
+
+    </div>
+
+
+
+    <!--ANGULAR CDN-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
+
+    <!--APP JS-->
+    <script src="app.js"></script>
+
+    <!--SERVICE JS-->
+    <script src="httpService.js"></script>
+</body>
+
+</html>
