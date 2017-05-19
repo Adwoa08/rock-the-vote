@@ -1,0 +1,1 @@
+This app allows users to publish poltical issues and upvote and downvote them, similar to other community based websites such as Reddit.
