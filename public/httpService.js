@@ -13,15 +13,14 @@ app.service("httpService",["$http", function($http){
     
     
    this.posting = function(issue){
-       
        return $http.post("/votes", issue).then(function(response){
            return response.data;
        }) 
    } 
     
    
+   
    this.editIssues = function(issue){
-       
        return $http.put("/votes/" + issue._id, issue).then(function(response){
            return response.data;
        })

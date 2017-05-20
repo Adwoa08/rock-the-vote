@@ -5,12 +5,16 @@ var Schema = mongoose.Schema;
 var voterSchema = new Schema({
     title: String,
     description: String,
-    votes: {
+    likes: {
+        type: Number,
+        default: 0
+    },
+       dislikes: {
         type: Number,
         default: 0
     },
     comments: [String]//some many comment on one item
-})
+});
 
 var Vote = mongoose.model("Vote", voterSchema);
 

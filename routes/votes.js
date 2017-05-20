@@ -1,8 +1,12 @@
 var express = require("express");
 var voteRouter = express.Router();
 var bodyParser = require("body-parser");
-voteRouter.use(bodyParser.json());
 var Vote = require("../model/vote-schema")
+
+voteRouter.use(bodyParser.json());
+
+
+
 
 voteRouter.get('/', function (req, res) {
     Vote.find(function (err, votes) {

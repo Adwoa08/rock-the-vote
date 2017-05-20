@@ -3,7 +3,16 @@
     margin: 0;
 }
 
+body {
+    background-image: url("images/america-flag.jpeg");
+}
 
-.clear {
-    clear: both;
+
+#displayed-issue {
+    background: rgba(255, 255, 0, 0.5);
+    
+}
+
+.comment-icon {
+    font-size: 60px;
 }

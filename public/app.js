@@ -25,31 +25,30 @@ app.controller("voteCtrl", ["$scope", "httpService", function ($scope, httpServi
 
 
     $scope.upVote = function (issue) {
-        issue.votes++
+            issue.likes++;
             httpService.editIssues(issue).then(function (data) {
-                $scope.votes = data;
+                $scope.likes = data;
             })
     }
 
 
     $scope.downVote = function (issue) {
-        if (issue.votes > 0) {
-            issue.votes--;
-        }
-
+        issue.dislikes++;
         httpService.editIssues(issue).then(function (data) {
-            $scope.votes = data;
+            $scope.dislikes = data;
+            console.log(data);
         })
     }
 
 
 
     $scope.addComment = function (comment, item) {
-
-        item.comments.push(comment)
+        item.comments.push(comment);
         httpService.editComment(item).then(function (data) {
-            issue = data;
+           issue = data;
         })
+        console.log($scope.newComment);
+        $('#text').val('');
     }
 
 
@@ -61,9 +60,7 @@ app.controller("voteCtrl", ["$scope", "httpService", function ($scope, httpServi
         })
 
     }
-    
-    
-
+   
 }])
 
 
