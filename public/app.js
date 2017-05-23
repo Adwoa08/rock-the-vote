@@ -1,66 +1,27 @@
-var app = angular.module("votingApp", []);
+var app = angular.module("votingApp", ["ngRoute", "votingApp.Auth", "ngFileUpload"]);
 
-app.controller("voteCtrl", ["$scope", "httpService", function ($scope, httpService) {
-
-    $scope.issues = [];
-
-    //--------------get function------------------------  
-    httpService.getOldPost().then(function (oldPost) {
-        $scope.issues = oldPost;
-    })
-
-
-    //--------------post function------------------------  
-    $scope.postIssue = function (issue) {
-
-        httpService.posting(issue).then(function (data) {
-            $scope.issues.push(data);
+app.config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
+//    $locationProvider.hashPrefix("");
+    
+    $routeProvider
+        .when("/", {
+            templateUrl:"/components/welcome/welcome.html",
+            controller: "welcomeCtrl"
+        })
+        .when("/issues", {
+            templateUrl: "/components/issues/issues.html",
+            controller: "issuesCtrl"
+        })
+        .when("/profile", {
+            templateUrl: "components/profile/profile.html",
+            controller: "profileCtrl"
+        })
+        .when("/forgot", {
+            templateUrl: "components/auth/forgot/forgot.html",
+            controller: "forgotPasswordCtrt"
         })
 
-        $scope.issue = {};
-    }
-
-
-    //--------------put function------------------------  
-
-
-    $scope.upVote = function (issue) {
-            issue.likes++;
-            httpService.editIssues(issue).then(function (data) {
-                $scope.likes = data;
-            })
-    }
-
-
-    $scope.downVote = function (issue) {
-        issue.dislikes++;
-        httpService.editIssues(issue).then(function (data) {
-            $scope.dislikes = data;
-            console.log(data);
+        .otherwise({
+            redirectTo: "/"
         })
-    }
-
-
-
-    $scope.addComment = function (comment, item) {
-        item.comments.push(comment);
-        httpService.editComment(item).then(function (data) {
-           issue = data;
-        })
-        console.log($scope.newComment);
-        $('#text').val('');
-    }
-
-
-    //--------------delete function------------------------ 
-    $scope.deleteIssue = function (index, id) {
-
-        httpService.deleteOldIssue(id).then(function (response) {
-            $scope.issues.splice(index, 1);
-        })
-
-    }
-   
-}])
-
-
+}]);

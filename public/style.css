@@ -3,8 +3,8 @@
     margin: 0;
 }
 
-body {
-    background-image: url("images/america-flag.jpeg");
+.clear {
+    clear: both;
 }
 
 
@@ -15,4 +15,24 @@ body {
 
 .comment-icon {
     font-size: 60px;
+}
+
+/*issues styling*/
+#post-topic-btn {
+    margin-top: -15px;
+}
+
+#title-n-description {
+    color: blue;
+}
+
+
+
+
+
+
+
+/*profile styling*/
+#profile-password-btn {
+    margin-top: 20px;
 }

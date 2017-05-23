@@ -5,7 +5,7 @@ app.service("httpService",["$http", function($http){
     
     this.getOldPost = function(){
         
-        return $http.get("/votes").then(function(response){
+        return $http.get("/api/votes/").then(function(response){
             return self.OldPost = response.data;
         })  
     }
@@ -13,7 +13,7 @@ app.service("httpService",["$http", function($http){
     
     
    this.posting = function(issue){
-       return $http.post("/votes", issue).then(function(response){
+       return $http.post("/api/votes/", issue).then(function(response){
            return response.data;
        }) 
    } 
@@ -21,7 +21,7 @@ app.service("httpService",["$http", function($http){
    
    
    this.editIssues = function(issue){
-       return $http.put("/votes/" + issue._id, issue).then(function(response){
+       return $http.put("/api/votes/" + issue._id, issue).then(function(response){
            return response.data;
        })
        
@@ -29,7 +29,7 @@ app.service("httpService",["$http", function($http){
    
       this.editComment = function(issue){
           
-       return $http.put("/votes/" + issue._id, issue).then(function(response){
+       return $http.put("/api/votes/" + issue._id, issue).then(function(response){
            return response.data;
        })
        
@@ -38,10 +38,18 @@ app.service("httpService",["$http", function($http){
   
       
       this.deleteOldIssue = function(id){
-          return $http.delete("/votes/" + id).then(function(response){
+          return $http.delete("/api/votes/" + id).then(function(response){
              alert("Your item has been successfully deleted");
           })
       }
+      
+      
+      
+//User Request
+      this.getCurrentUser = function(){
+          return $http.get("/api/user/profile");
+      }
+      
       
       
 }])

@@ -1,0 +1,105 @@
+<form novalidate name="voteInput" class="col-xs-10 col-sm-4 col-md-4 col-lg-4 col-xs-offset-1 col-sm-offset-4 col-md-offset-4 col-lg-offset-4 text-center form-group">
+    <button id="post-topic-btn" class="btn btn-primary" type="button" ng-click="posting = !posting">Post A Topic</button>
+    <div ng-show="posting">
+        <input class="form-control" placeholder="Title of political issue." name="title" ng-model="issue.title">
+        <input class="form-control" placeholder="Description of the political issue." name="description" ng-model="issue.description">
+        <button id="post-issue-btn" class="btn btn-success" type="button" ng-click="postIssue(issue); posting = !posting">Post</button>
+    </div>
+</form>
+
+
+<div class="clear"></div>
+
+
+
+
+<div id="panels" class="container">
+    <ul class="nav nav-tabs responsive">
+        <li class="active">
+            <a href="#/issues/#1" data-toggle="tab">Issues</a>
+        </li>
+        <li><a href="#/issues/#2" data-toggle="tab">Comments</a>
+        </li>
+    </ul>
+
+    <div class="tab-content responsive" ng-repeat="item in issues | orderBy: '-votes' track by $index">
+        <div class="tab-pane active" id="1">
+            <!--            <div class="row">-->
+            <div class="col-sm-1 col-md-1">
+                {{$index}}
+            </div>
+            <div class="col-sm-2 col-md-2">
+                <img ng-src="{{user.image}}">
+            </div>
+            <div class="col-sm-5 col-md-5">
+                <h5>{{item.title}} <span>: {{item.description}}</span></h5>
+            </div>
+            <div class="col-sm-2 col-md-2">
+
+            </div>
+            <div class="col-sm-2 col-md-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <i ng-click="upVote(item)" class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <p>{{item.likes}}</p>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <i ng-click="downVote(item)" class="fa fa-thumbs-down" aria-hidden="true"></i>
+                        <p>{{item.dislikes}}</p>
+                    </div>
+                </div>
+            </div>
+            <!--            </div>-->
+        </div>
+        <div class="tab-pane" id="2">
+            <p ng-repeat="comment in item.comments track by $index">{{comment}}</p>
+            <div class="textbox">
+                <textarea placeholder="Drop you comment here" id="text" ng-model="newComment"></textarea>
+            </div>
+            <button class="btn btn-warning" type="button" ng-click="addComment(newComment, item)">Add</button>
+        </div>
+    </div>
+</div>
+
+<!------------------Display Post-------------------------------->
+<!--
+
+<div class="container">
+    <div class="row text-center">
+        <div id="displayed-issue" ng-repeat="item in issues | orderBy: '-votes' track by $index" class="col-xs-10 col-sm-4 col-md-4 col-lg-4 col-xs-offset-1">
+
+
+
+            <div class="up-down-vote">
+                <button " type="button" class="btn btn-success">
+                        <label>vote</label>
+                        
+                    </button>
+                
+
+                <button  type="button" class="btn btn-danger">
+                        <label>vote</label>
+                        
+                    </button>
+                
+            </div>
+
+
+            This displays comments from random voters
+            <i ng-click="comment = !comment" class="fa fa-comment comment-icon" aria-hidden="true"></i>
+            <div ng-show="comment">
+                <p ng-repeat="comment in item.comments">{{comment}}</p>
+            </div>
+
+
+            <div class="textbox">
+                <textarea placeholder="Drop you comment here" id="text" ng-model="newComment"></textarea>
+            </div>
+            <button class="btn btn-warning" type="button" ng-click="addComment(newComment, item)">Add</button>
+
+            <button type="button" ng-click="deleteIssue($index, item._id)">Remove</button>
+        </div>
+-->
+</div>
+</div>
