@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
+    "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.26",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
     "bower": "^1.8.0",

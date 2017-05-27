@@ -1,7 +1,7 @@
 var app = angular.module("votingApp", ["ngRoute", "votingApp.Auth", "ngFileUpload"]);
 
 app.config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
-//    $locationProvider.hashPrefix("");
+    $locationProvider.hashPrefix("");
     
     $routeProvider
         .when("/", {

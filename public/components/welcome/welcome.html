@@ -1,1 +1,89 @@
-{{test}}
+<div id="panels" class="container">
+
+    <section ng-init="tab = 1" class="tab">
+
+        <ul class="nav nav-tabs">
+            <li ng-class="{active:tab === 1}">
+                <a ng-click="tab = 1" href>Issues</a>
+            </li>
+            <li ng-class="{active:tab === 2}">
+                <a href ng-click="tab = 2">Comments</a>
+            </li>
+
+        </ul>
+
+        <div ng-repeat="issue in allIssues track by $index">
+            <div ng-show="tab === 1">
+                <div>
+                    <div class="col-sm-1 col-md-1">
+                        {{$index + 1}}
+                    </div>
+                    <div class="col-sm-1 col-md-1">
+                        <img ng-src="{{user}}" height="30px">
+                    </div>
+                    <div class="col-sm-6 col-md-6 title">
+                        <span class="text">check comments</span>
+                        <p class="title-description-p"><a href data-toggle="modal" data-target="#myModal"><span class="issue-title">/{{issue.title}}/</span></a> {{issue.description}}</p>
+                    </div>
+                    <div class="col-sm-2 col-md-2">
+                        <p>{{issue.numberOfComments}} <i class="fa fa-comments comment" aria-hidden="true"></i></p>
+                    </div>
+                    <div class="col-sm-2 col-md-2">
+                        <div class="row">
+                            <div class="col-sm-6">
+                               <a href="#/login">
+                                <i ng-click="upVote(issue)" class="fa fa-thumbs-up vote-icon" aria-hidden="true"></i>
+                                </a>
+                                <p>{{issue.likes}}</p>
+                            </div>
+
+                            <div class="col-sm-6">
+                               <a href="#/login">
+                                <i ng-click="downVote(issue)" class="fa fa-thumbs-down vote-icon" aria-hidden="true"></i>
+                                </a>
+                                <p>{{issue.dislikes}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div ng-show="tab === 2">
+                <div class="tab-pane" id="2">
+                    <div class="col-xs-2">
+                        <!--                        {{$index}}-->
+                    </div>
+                    <div class="col-xs-10">
+                        <p ng-repeat="comment in issue.comments track by $index">{{comment}}</p>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">{{issue.title}}</h4>
+                        </div>
+                        <!--        body-->
+                        <div class="modal-body">
+                            <p ng-repeat="comment in issue.comments track by $index">{{$index + 1}}. {{comment}}</p>
+                        </div>
+
+                        <!--footer-->
+                        <div class="modal-footer">
+                            <span class="pull-left"><strong>Sign Up</strong> or <strong>Log In</strong> to comment</span>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

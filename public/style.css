@@ -36,3 +36,62 @@
 #profile-password-btn {
     margin-top: 20px;
 }
+
+
+
+
+/*issues page*/
+.title-description-p {
+    font-size: 15px;
+}
+
+.title-description-p a {
+    text-decoration: none;
+}
+
+
+.issue-title {
+    color: blue;
+}
+
+.text {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    top: -30px;
+    z-index: 1;
+}
+
+
+.title:hover {
+    cursor: pointer;
+}
+
+
+.title:hover .text {
+    visibility: visible;
+}
+
+
+.comment {
+    font-size: 30px;
+}
+
+
+.trash-btn {
+    margin-top: 2px;
+}
+
+.vote-icon {
+    
+}
+
+.vote-icon:hover {
+    cursor: pointer;
+    color: blue;
+}

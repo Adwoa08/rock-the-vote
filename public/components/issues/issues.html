@@ -7,6 +7,7 @@
     </div>
 </form>
 
+<h3 ng-repeat="issue in issues">{{issue.vote}}</h3>
 
 <div class="clear"></div>
 
@@ -14,92 +15,93 @@
 
 
 <div id="panels" class="container">
-    <ul class="nav nav-tabs responsive">
-        <li class="active">
-            <a href="#/issues/#1" data-toggle="tab">Issues</a>
-        </li>
-        <li><a href="#/issues/#2" data-toggle="tab">Comments</a>
-        </li>
-    </ul>
 
-    <div class="tab-content responsive" ng-repeat="item in issues | orderBy: '-votes' track by $index">
-        <div class="tab-pane active" id="1">
-            <!--            <div class="row">-->
-            <div class="col-sm-1 col-md-1">
-                {{$index}}
-            </div>
-            <div class="col-sm-2 col-md-2">
-                <img ng-src="{{user.image}}">
-            </div>
-            <div class="col-sm-5 col-md-5">
-                <h5>{{item.title}} <span>: {{item.description}}</span></h5>
-            </div>
-            <div class="col-sm-2 col-md-2">
+    <section ng-init="tab = 1" class="tab">
 
-            </div>
-            <div class="col-sm-2 col-md-2">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <i ng-click="upVote(item)" class="fa fa-thumbs-up" aria-hidden="true"></i>
-                        <p>{{item.likes}}</p>
+        <ul class="nav nav-tabs">
+            <li ng-class="{active:tab === 1}">
+                <a ng-click="tab = 1" href>Issues</a>
+            </li>
+            <li ng-class="{active:tab === 2}">
+                <a href ng-click="tab = 2">Comments</a>
+            </li>
+
+        </ul>
+
+        <div ng-repeat="issue in allIssues track by $index">
+            <div ng-show="tab === 1">
+                <div>
+                    <div class="col-sm-1 col-md-1">
+                        {{$index + 1}}
                     </div>
+                    <div class="col-sm-1 col-md-1">
+                        <img ng-src="{{user.image}}" height="30px">
+                    </div>
+                    <div class="col-sm-5 col-md-5 title">
+                        <span class="text">click to comment</span>
+                        <p class="title-description-p"><a href data-toggle="modal" data-target="#myModal"><span class="issue-title">/{{issue.title}}/</span></a> {{issue.description}}</p>
+                    </div>
+                    <div class="col-sm-2 col-md-2">
+                        <p>{{issue.numberOfComments}} <i class="fa fa-comments comment" aria-hidden="true"></i></p>
+                    </div>
+                    <div class="col-sm-2 col-md-2">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <i ng-click="upVote(issue)" class="fa fa-thumbs-up vote-icon" aria-hidden="true"></i>
+                                <p>{{issue.likes}}</p>
+                            </div>
 
-                    <div class="col-sm-6">
-                        <i ng-click="downVote(item)" class="fa fa-thumbs-down" aria-hidden="true"></i>
-                        <p>{{item.dislikes}}</p>
+                            <div class="col-sm-6">
+                                <i ng-click="downVote(issue)" class="fa fa-thumbs-down vote-icon" aria-hidden="true"></i>
+                                <p>{{issue.dislikes}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-1 col-md-1">
+                        <button ng-click="deleteIssue($index, issue._id)" class="btn btn-danger btn-sm trash-btn"><span class="glyphicon glyphicon-trash"></span></button>
                     </div>
                 </div>
             </div>
-            <!--            </div>-->
+
+
+            <div ng-show="tab === 2">
+                <div class="tab-pane" id="2">
+                    <div class="col-xs-2">
+                        <!--                        {{$index}}-->
+                    </div>
+                    <div class="col-xs-10">
+                        <p ng-repeat="comment in issue.comments track by $index">{{comment}}</p>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">{{issue.title}}</h4>
+                        </div>
+                        <!--        body-->
+                        <div class="modal-body">
+                            <p ng-repeat="comment in issue.comments track by $index">{{$index + 1}}. {{comment}}</p>
+                            <div class="textbox">
+                                <textarea placeholder="Drop you comment here" id="text" ng-model="newComment"></textarea>
+                            </div>
+                            <button class="btn btn-success" type="button" ng-click="addComment(newComment, issue, issue._id, $index)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        </div>
+
+                        <!--        footer-->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="tab-pane" id="2">
-            <p ng-repeat="comment in item.comments track by $index">{{comment}}</p>
-            <div class="textbox">
-                <textarea placeholder="Drop you comment here" id="text" ng-model="newComment"></textarea>
-            </div>
-            <button class="btn btn-warning" type="button" ng-click="addComment(newComment, item)">Add</button>
-        </div>
-    </div>
-</div>
-
-<!------------------Display Post-------------------------------->
-<!--
-
-<div class="container">
-    <div class="row text-center">
-        <div id="displayed-issue" ng-repeat="item in issues | orderBy: '-votes' track by $index" class="col-xs-10 col-sm-4 col-md-4 col-lg-4 col-xs-offset-1">
-
-
-
-            <div class="up-down-vote">
-                <button " type="button" class="btn btn-success">
-                        <label>vote</label>
-                        
-                    </button>
-                
-
-                <button  type="button" class="btn btn-danger">
-                        <label>vote</label>
-                        
-                    </button>
-                
-            </div>
-
-
-            This displays comments from random voters
-            <i ng-click="comment = !comment" class="fa fa-comment comment-icon" aria-hidden="true"></i>
-            <div ng-show="comment">
-                <p ng-repeat="comment in item.comments">{{comment}}</p>
-            </div>
-
-
-            <div class="textbox">
-                <textarea placeholder="Drop you comment here" id="text" ng-model="newComment"></textarea>
-            </div>
-            <button class="btn btn-warning" type="button" ng-click="addComment(newComment, item)">Add</button>
-
-            <button type="button" ng-click="deleteIssue($index, item._id)">Remove</button>
-        </div>
--->
-</div>
+    </section>
 </div>

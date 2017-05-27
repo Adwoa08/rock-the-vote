@@ -13,7 +13,15 @@ var voterSchema = new Schema({
         type: Number,
         default: 0
     },
-    comments: [String]//some many comment on one item
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    },
+    comments: [String],//some many comment on one item
+    numberOfComments: {
+        type: Number,
+        default: 0
+    }
 });
 
 var Vote = mongoose.model("Vote", voterSchema);

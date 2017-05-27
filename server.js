@@ -30,6 +30,8 @@ app.use(express.static(path.join(__dirname, "uploads", "images")));
 app.use("/auth", authRouter);
 app.use("/auth/change-password", expressJwt({secret: config.secret}));
 app.use("/api", expressJwt({secret: config.secret}));
+app.use("/votes", voteRouter);
+app.use("/user", userRouter);
 app.use("/api/votes", voteRouter);
 app.use("/api/user", userRouter);
 //-------------------------------------------------

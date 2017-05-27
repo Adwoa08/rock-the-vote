@@ -31,6 +31,16 @@ userRouter.put("/", upload, function(req, res){
 
 
 //User info routes
+
+userRouter.route("/allUsers")
+    .get(function(req, res){
+    User.find(function(err, userInfo){
+        if(err) return res.status(500).send(err);
+        res.send(userInfo);
+    });
+})
+
+
 userRouter.route("/profile")
     .get(function(req, res){
     User.findOne({_id: req.user._id}, function(err, userInfo){

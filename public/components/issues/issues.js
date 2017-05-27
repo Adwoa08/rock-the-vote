@@ -4,6 +4,21 @@ app.controller("issuesCtrl", ["$scope", "httpService", function ($scope, httpSer
 
     $scope.issues = [];
 
+
+
+    httpService.getAllPost().then(function (data) {
+        $scope.allIssues = data;
+       
+//        for (var i = 0; i < $scope.allIssues[i].length; i++) {
+//            if (allIssues[i]._id) {
+//                $scope.numberOfComments = $scope.allIssues[i].comments.length;
+//                console.log($scope.numberOfComments);
+//            }
+//        }
+        
+        
+    })
+
     //--------------get function------------------------  
     httpService.getOldPost().then(function (oldPost) {
         $scope.issues = oldPost;
@@ -12,7 +27,6 @@ app.controller("issuesCtrl", ["$scope", "httpService", function ($scope, httpSer
 
     //--------------post function------------------------  
     $scope.postIssue = function (issue) {
-
         httpService.posting(issue).then(function (data) {
             $scope.issues.push(data);
         })
@@ -21,14 +35,15 @@ app.controller("issuesCtrl", ["$scope", "httpService", function ($scope, httpSer
     }
 
 
+
     //--------------put function------------------------  
 
 
     $scope.upVote = function (issue) {
-            issue.likes++;
-            httpService.editIssues(issue).then(function (data) {
-                $scope.likes = data;
-            })
+        issue.likes++;
+        httpService.editIssues(issue).then(function (data) {
+            $scope.likes = data;
+        })
     }
 
 
@@ -40,26 +55,34 @@ app.controller("issuesCtrl", ["$scope", "httpService", function ($scope, httpSer
     }
 
 
+    
 
-    $scope.addComment = function (comment, item) {
-        item.comments.push(comment);
-        httpService.editComment(item).then(function (data) {
-           issue = data;
+    $scope.addComment = function (comment, issue, id, index) {
+        issue.numberOfComments++;
+        issue.comments.push(comment);
+        httpService.editComment(issue, id).then(function (data) {
+
         })
-        console.log($scope.newComment);
         $('#text').val('');
     }
 
 
     //--------------delete function------------------------ 
     $scope.deleteIssue = function (index, id) {
-
         httpService.deleteOldIssue(id).then(function (response) {
             $scope.issues.splice(index, 1);
         })
 
     }
-   
+
+
+
+
+
+    
+//Getting userInfo
+    httpService.getCurrentUser().then(function(data){
+        $scope.user = data;
+    })
+    
 }])
-
-
