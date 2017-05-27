@@ -8,14 +8,6 @@ app.controller("issuesCtrl", ["$scope", "httpService", function ($scope, httpSer
 
     httpService.getAllPost().then(function (data) {
         $scope.allIssues = data;
-       
-//        for (var i = 0; i < $scope.allIssues[i].length; i++) {
-//            if (allIssues[i]._id) {
-//                $scope.numberOfComments = $scope.allIssues[i].comments.length;
-//                console.log($scope.numberOfComments);
-//            }
-//        }
-        
         
     })
 
@@ -74,15 +66,5 @@ app.controller("issuesCtrl", ["$scope", "httpService", function ($scope, httpSer
         })
 
     }
-
-
-
-
-
-    
-//Getting userInfo
-    httpService.getCurrentUser().then(function(data){
-        $scope.user = data;
-    })
-    
+ 
 }])

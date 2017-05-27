@@ -19,7 +19,7 @@
                         {{$index + 1}}
                     </div>
                     <div class="col-sm-1 col-md-1">
-                        <img ng-src="{{user}}" height="30px">
+                        <img ng-src="{{issue.image}}" height="30px">
                     </div>
                     <div class="col-sm-6 col-md-6 title">
                         <span class="text">check comments</span>
@@ -50,12 +50,12 @@
 
 
             <div ng-show="tab === 2">
-                <div class="tab-pane" id="2">
+                <div class="tab-pane" id="2" ng-repeat="comment in issue.comments track by $index">
                     <div class="col-xs-2">
-                        <!--                        {{$index}}-->
+                        {{$index + 1}}
                     </div>
                     <div class="col-xs-10">
-                        <p ng-repeat="comment in issue.comments track by $index">{{comment}}</p>
+                        <p>{{comment}}</p>
                     </div>
                 </div>
             </div>

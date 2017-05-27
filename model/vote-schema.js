@@ -5,6 +5,10 @@ var Schema = mongoose.Schema;
 var voterSchema = new Schema({
     title: String,
     description: String,
+     image: {
+        type: String,
+        default: 'http://pacifichealthsummit.org/images/publications/topic.png'
+    },
     likes: {
         type: Number,
         default: 0

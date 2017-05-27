@@ -4,11 +4,6 @@ app.controller("welcomeCtrl", ["$scope", "httpService",  function($scope, httpSe
     httpService.getAllPost().then(function(data){
         $scope.allIssues = data;
     })
-
-    
-     httpService.getCurrentUser().then(function(data){
-        $scope.user = data[0].image;
-    })
      
      
 }]);
